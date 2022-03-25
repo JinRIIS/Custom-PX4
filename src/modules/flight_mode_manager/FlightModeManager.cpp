@@ -32,7 +32,6 @@
  ****************************************************************************/
 
 #include "FlightModeManager.hpp"
-
 #include <lib/mathlib/mathlib.h>
 #include <lib/matrix/matrix/math.hpp>
 

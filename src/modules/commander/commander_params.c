@@ -713,6 +713,30 @@ PARAM_DEFINE_INT32(COM_RC_OVERRIDE, 1);
 PARAM_DEFINE_FLOAT(COM_RC_STICK_OV, 30.0f);
 
 /**
+ * Maximum Yaw Offset
+ *
+ * If the flight mode is in orbit mode or mission mode, the maximum offset of the slider can have is this value
+ *
+ * @group Commander
+ * @unit deg
+ * @min 0
+ * @max 360
+ */
+PARAM_DEFINE_FLOAT(COM_RC_YAW_OFF, 60f);
+
+/**
+ * Current Yaw Offset
+ *
+ * The current offset of the Yaw
+ *
+ * @group Commander
+ * @unit deg
+ * @min -360
+ * @max 360
+ */
+PARAM_DEFINE_FLOAT(RC_YAW_OFF, 0f);
+
+/**
  * Require valid mission to arm
  *
  * The default allows to arm the vehicle without a valid mission.

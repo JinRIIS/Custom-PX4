@@ -33,7 +33,6 @@
 
 #pragma once
 
-#include "FlightTask.hpp"
 #include "FlightTasks_generated.hpp"
 
 #include <drivers/drv_hrt.h>

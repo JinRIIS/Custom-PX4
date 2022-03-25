@@ -139,6 +139,8 @@ private:
 		(ParamFloat<px4::params::MPC_ACC_UP_MAX>) _param_mpc_acc_up_max,
 		(ParamFloat<px4::params::MPC_ACC_DOWN_MAX>) _param_mpc_acc_down_max,
 		(ParamFloat<px4::params::MPC_Z_V_AUTO_UP>) _param_mpc_z_v_auto_up,
-		(ParamFloat<px4::params::MPC_Z_V_AUTO_DN>) _param_mpc_z_v_auto_dn
+		(ParamFloat<px4::params::MPC_Z_V_AUTO_DN>) _param_mpc_z_v_auto_dn,
+		(ParamFloat<px4::params::COM_RC_YAW_OFF>) _param_com_rc_yaw_off, // max yaw offset
+		(ParamFloat<px4::params::RC_YAW_OFF>) _param_rc_yaw_off // current yaw offset
 	)
 };
