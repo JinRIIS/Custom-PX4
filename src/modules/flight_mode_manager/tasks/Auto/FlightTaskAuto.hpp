@@ -184,7 +184,9 @@ protected:
 					(ParamFloat<px4::params::MPC_TKO_SPEED>) _param_mpc_tko_speed,
 					(ParamFloat<px4::params::MPC_TKO_RAMP_T>)
 					_param_mpc_tko_ramp_t, // time constant for smooth takeoff ramp
-					(ParamFloat<px4::params::MPC_MAN_Y_MAX>) _param_mpc_man_y_max
+					(ParamFloat<px4::params::MPC_MAN_Y_MAX>) _param_mpc_man_y_max,
+					(ParamFloat<px4::params::COM_RC_YAW_OFF>) _param_com_rc_yaw_off, // max yaw offset
+					(ParamFloat<px4::params::RC_YAW_OFF>) _param_rc_yaw_off // current yaw offset
 				       );
 
 private:

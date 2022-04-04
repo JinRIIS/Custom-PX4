@@ -327,10 +327,12 @@ void FlightTaskOrbit::_generate_circle_yaw_setpoints()
 	case orbit_status_s::ORBIT_YAW_BEHAVIOUR_RC_CONTROLLED:
 		// inherit setpoint from altitude flight task
         	_yaw_setpoint = atan2f(-center_to_position(1), -center_to_position(0)) + (_param_rc_yaw_off.get() * (float)0.0174532925);
-		    std::cout << "_yaw_setpoint = " << std::endl;
-            std::cout << _yaw_setpoint << std::endl;
-            std::cout << "yaw off set value test = " << std::endl;
-            std::cout << _param_rc_yaw_off.get() << std::endl;
+		// std::cout << "_yaw_setpoint = " << std::endl;
+            	// std::cout << _yaw_setpoint << std::endl;
+            	// std::cout << "_param_rc_yaw_off.get() = " << std::endl;
+            	// std::cout << _param_rc_yaw_off.get() << std::endl;
+            	// std::cout << "(_param_rc_yaw_off.get() * (float)0.0174532925) = " << std::endl;
+            	// std::cout << (_param_rc_yaw_off.get() * (float)0.0174532925) << std::endl;
 
 		break;
 

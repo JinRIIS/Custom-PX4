@@ -103,7 +103,7 @@ PARAM_DEFINE_FLOAT(RTL_LAND_DELAY, 0.0f);
  * @increment 0.5
  * @group Return Mode
  */
-PARAM_DEFINE_FLOAT(RTL_MIN_DIST, 10.0f);
+PARAM_DEFINE_FLOAT(RTL_MIN_DIST, 60.0f);
 
 /**
  * Return type
@@ -203,3 +203,27 @@ PARAM_DEFINE_FLOAT(RTL_TIME_FACTOR, 1.1f);
  * @group Return To Land
  */
 PARAM_DEFINE_INT32(RTL_TIME_MARGIN, 100);
+
+// /**
+//  * Maximum Yaw Offset
+//  *
+//  * If the flight mode is in orbit mode or mission mode, the maximum offset of the slider can have is this value
+//  *
+//  * @group Commander
+//  * @unit deg
+//  * @min 0
+//  * @max 360
+//  */
+// PARAM_DEFINE_FLOAT(COM_RC_YAW_OFF, 60f);
+
+// /**
+//  * Current Yaw Offset
+//  *
+//  * The current offset of the Yaw
+//  *
+//  * @group Commander
+//  * @unit deg
+//  * @min -360
+//  * @max 360
+//  */
+// PARAM_DEFINE_FLOAT(RC_YAW_OFF, 0f);

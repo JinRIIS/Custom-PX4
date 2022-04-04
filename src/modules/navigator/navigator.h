@@ -453,7 +453,10 @@ private:
 		(ParamBool<px4::params::MIS_TAKEOFF_REQ>)  _param_mis_takeoff_req,
 		(ParamFloat<px4::params::MIS_YAW_TMT>)     _param_mis_yaw_tmt,
 		(ParamFloat<px4::params::MIS_YAW_ERR>)     _param_mis_yaw_err,
-		(ParamFloat<px4::params::LNDMC_ALT_MAX>)   _param_lndmc_alt_max
+		(ParamFloat<px4::params::LNDMC_ALT_MAX>)   _param_lndmc_alt_max,
+
+		(ParamFloat<px4::params::COM_RC_YAW_OFF>) _param_com_rc_yaw_off, // max yaw offset
+		(ParamFloat<px4::params::RC_YAW_OFF>) _param_rc_yaw_off // current yaw offset
 
 	)
 };

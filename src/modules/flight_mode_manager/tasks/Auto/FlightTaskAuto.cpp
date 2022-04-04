@@ -37,6 +37,8 @@
 #include "FlightTaskAuto.hpp"
 #include <mathlib/mathlib.h>
 #include <float.h>
+#include <iostream>
+
 
 using namespace matrix;
 
@@ -520,6 +522,7 @@ void FlightTaskAuto::_set_heading_from_mode()
 	switch (_param_mpc_yaw_mode.get()) {
 
 	case 0: // Heading points towards the current waypoint.
+
 	case 4: // Same as 0 but yaw first and then go
 		v = Vector2f(_target) - Vector2f(_position);
 		break;
@@ -528,20 +531,24 @@ void FlightTaskAuto::_set_heading_from_mode()
 		if (_sub_home_position.get().valid_lpos) {
 			v = Vector2f(&_sub_home_position.get().x) - Vector2f(_position);
 		}
-
+		std::cout << "Heading points towards home" << std::endl;
+		// std::cout << v << std::endl;
 		break;
 
 	case 2: // Heading point away from home.
 		if (_sub_home_position.get().valid_lpos) {
 			v = Vector2f(_position) - Vector2f(&_sub_home_position.get().x);
 		}
-
+		std::cout << "Heading point away from home" << std::endl;
+		// std::cout << v << std::endl;
 		break;
 
 	case 3: // Along trajectory.
 		// The heading depends on the kind of setpoint generation. This needs to be implemented
 		// in the subclasses where the velocity setpoints are generated.
 		v.setAll(NAN);
+		std::cout << "Along trajectory" << std::endl;
+		// std::cout << v << std::endl;
 		break;
 	}
 
@@ -551,7 +558,18 @@ void FlightTaskAuto::_set_heading_from_mode()
 		// This prevents excessive yawing.
 		if (v.longerThan(_target_acceptance_radius)) {
 			if (_compute_heading_from_2D_vector(_yaw_setpoint, v)) {
+				_yaw_setpoint = atan2f(v(1), v(0)) + ((_param_mpc_yaw_mode.get() + _param_rc_yaw_off.get()) * (float)0.0174532925);
+				// _yaw_setpoint = (_param_mpc_yaw_mode.get() * (float)0.0174532925);
 				_yaw_lock = true;
+				// std::cout << "_yaw_setpoint for yaw lock" << std::endl;
+				// std::cout << _yaw_setpoint << std::endl;
+				// std::cout << "value of atan2f(-v(1), -v(0))" << std::endl;
+				// std::cout << atan2f(-v(1), -v(0)) << std::endl;
+				// std::cout << "value of _param_mpc_yaw_mode.get()" << std::endl;
+				// std::cout << _param_mpc_yaw_mode.get() << std::endl;
+				// std::cout << "value of _param_rc_yaw_off.get()" << std::endl;
+				// std::cout << _param_rc_yaw_off.get() << std::endl;
+
 			}
 		}
 
@@ -563,9 +581,17 @@ void FlightTaskAuto::_set_heading_from_mode()
 	} else {
 		_yaw_lock = false;
 		_yaw_setpoint = NAN;
+		// _yaw_setpoint = NAN + (_param_mpc_yaw_mode.get() * (float)0.0174532925);
+		// std::cout << "_yaw_setpoint for yaw lock" << std::endl;
+		// std::cout << _yaw_setpoint << std::endl;
+		// std::cout << _param_mpc_yaw_mode.get() << std::endl;
 	}
 
-	_yawspeed_setpoint = NAN;
+	// _yawspeed_setpoint = NAN;
+	_yawspeed_setpoint = NAN + (_param_mpc_yaw_mode.get() * (float)0.0174532925);
+
+	// std::cout << "_set_heading_from_mode yaw setpoint" << std::endl;
+	// std::cout << _yawspeed_setpoint << std::endl;
 }
 
 bool FlightTaskAuto::_isFinite(const position_setpoint_s &sp)

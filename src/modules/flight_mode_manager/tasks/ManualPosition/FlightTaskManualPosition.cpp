@@ -39,6 +39,7 @@
 #include <mathlib/mathlib.h>
 #include <float.h>
 
+
 using namespace matrix;
 
 FlightTaskManualPosition::FlightTaskManualPosition() : _collision_prevention(this)
@@ -149,6 +150,8 @@ void FlightTaskManualPosition::_updateSetpoints()
 		if (PX4_ISFINITE(_position_setpoint(0)) && PX4_ISFINITE(_position_setpoint(1))) {
 			// vehicle is steady
 			_yawspeed_setpoint += _weathervane_yaw_handler->get_weathervane_yawrate();
+
+
 		}
 	}
 }

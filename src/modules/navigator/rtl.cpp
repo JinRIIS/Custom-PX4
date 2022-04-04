@@ -46,6 +46,8 @@
 #include <px4_platform_common/events.h>
 
 #include <lib/geo/geo.h>
+#include <iostream>
+
 
 
 static constexpr float DELAY_SIGMA = 0.01f;
@@ -336,6 +338,7 @@ void RTL::set_rtl_item()
 	const float loiter_altitude = min(descend_altitude_target, _rtl_alt);
 
 	const RTLHeadingMode rtl_heading_mode = static_cast<RTLHeadingMode>(_param_rtl_hdg_md.get());
+	// const RTLHeadingMode rtl_heading_mode = static_cast<RTLHeadingMode>(_param_rtl_hdg_md.get() + _param_rc_yaw_off.get());
 
 	switch (_rtl_state) {
 	case RTL_STATE_CLIMB: {
@@ -356,9 +359,13 @@ void RTL::set_rtl_item()
 
 			if (rtl_heading_mode != RTLHeadingMode::RTL_DESTINATION_HEADING) {
 				_mission_item.yaw = _navigator->get_local_position()->heading;
+				std::cout << "rtl heading != destination heading -> _mission_item.yaw = " << std::endl;
+				std::cout << _mission_item.yaw << std::endl;
 
 			} else {
 				_mission_item.yaw = _destination.yaw;
+				std::cout << "rtl heading = destination heading -> _mission_item.yaw = " << std::endl;
+				std::cout << _mission_item.yaw << std::endl;
 			}
 
 			_mission_item.acceptance_radius = _navigator->get_acceptance_radius();
@@ -387,13 +394,25 @@ void RTL::set_rtl_item()
 			    destination_dist > _param_rtl_min_dist.get()) {
 				_mission_item.yaw = get_bearing_to_next_waypoint(gpos.lat, gpos.lon, _destination.lat, _destination.lon);
 
+				// _mission_item.yaw = get_bearing_to_next_waypoint(gpos.lat, gpos.lon, _destination.lat, _destination.lon) + _param_rc_yaw_off.get();
+
+				std::cout << "rtl_heading_mode == RTLHeadingMode::RTL_NAVIGATION_HEADING && destination_dist > _param_rtl_min_dist.get() = " << std::endl;
+				std::cout << _mission_item.yaw << std::endl;
+				std::cout << _param_rc_yaw_off.get() << std::endl;
+
 			} else if (rtl_heading_mode == RTLHeadingMode::RTL_DESTINATION_HEADING ||
 				   destination_dist < _param_rtl_min_dist.get()) {
 				// Use destination yaw if close to _destination.
 				_mission_item.yaw = _destination.yaw;
 
+				std::cout << "rtl_heading_mode == RTLHeadingMode::RTL_DESTINATION_HEADING || destination_dist < _param_rtl_min_dist.get() = " << std::endl;
+				std::cout << _mission_item.yaw << std::endl;
+
 			} else if (rtl_heading_mode == RTLHeadingMode::RTL_CURRENT_HEADING) {
 				_mission_item.yaw = _navigator->get_local_position()->heading;
+
+				std::cout << "rtl_heading_mode == RTLHeadingMode::RTL_CURRENT_HEADING = " << std::endl;
+				std::cout << _mission_item.yaw << std::endl;
 			}
 
 			_mission_item.acceptance_radius = _navigator->get_acceptance_radius();
@@ -487,6 +506,9 @@ void RTL::set_rtl_item()
 
 			break;
 		}
+
+
+	// need to check here as well !!!
 
 	case RTL_STATE_HEAD_TO_CENTER: {
 			_mission_item.nav_cmd = NAV_CMD_WAYPOINT;
